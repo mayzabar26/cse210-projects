@@ -4,13 +4,16 @@ class Program
 {
     static void Main(string[] args)
     {
+        
         Console.WriteLine("Hello Prep2 World!");
 
+        //Asking for the user's grade
         Console.Write("What is your grade percentage? ");
         string answer = Console.ReadLine();
         int percent = int.Parse(answer);
         string letter = "";
 
+        //If Statement declaration according to the grade percentage
         if (percent >= 90)
         {
             letter = "A";
@@ -34,6 +37,7 @@ class Program
             letter = "F";
         }
 
+        //Grade's output according to the user's answer
         Console.WriteLine($"Your grade is: {letter}.");
         
 
