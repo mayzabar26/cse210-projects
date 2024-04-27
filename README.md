@@ -1,5 +1,5 @@
 # cse210-ww-student-template
-MAYZA COSTA BARBOSA 
+Student's name: MAYZA COSTA BARBOSA 
 
 This is the starter code for students in the worldwide content version of CSE 210.
 
