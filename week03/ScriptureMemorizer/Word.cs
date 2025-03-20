@@ -1,6 +1,6 @@
 using System;
 
-public class Word 
+class Word 
 {
     //Attributes
     private string _text;
@@ -43,7 +43,4 @@ public class Word
         else
             return _text;
     }
-
-
-
 }
