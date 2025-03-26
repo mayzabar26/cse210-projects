@@ -15,9 +15,30 @@ class Customer
     }
 
 
-    //Setting methods
-    public void IsInUSA()
+    //Setting method to check if the customer is from USA
+    public bool IsInUSA()
     {
-        if ()
+        return _address.IsInUSA();
+    }
+
+
+    //Setting method to get customer's name
+    public string GetName()
+    {
+        return _name;
+    }
+
+
+    //Setting method to return the object Address
+    public Address GetAddress()
+    {
+        return _address;
+    }
+
+
+    //Setting method to get customer's full address
+    public string GetFullAddress()
+    {
+        return _address.GetFullAddress();
     }
 }

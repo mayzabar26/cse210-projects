@@ -9,10 +9,17 @@ class Order
 
 
     //Setting constructors
-    public Order(string text, Customer customer)
+    public Order(Customer customer)
     {
         _products = new List<Product>();
         _customer = customer;
+    }
+
+
+    //Setting method to add products in the orders
+    public void AddProduct(Product product)
+    {
+        _products.Add(product);
     }
 
 

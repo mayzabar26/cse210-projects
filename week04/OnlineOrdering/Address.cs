@@ -19,16 +19,15 @@ class Address
     }
     
     
-    //Setting methods
-    public void IsInUSA()
+    //Setting method to check if the country is USA
+    public bool IsInUSA()
     {
-
+        return _country.ToUpper() == "USA"; //Returns true if the country is USA 
     }
 
 
     public string GetFullAddress()
     {
-
+        return $"{_street}\n{_city}, {_state}\n{_country}";
     }
-
 }
