@@ -37,18 +37,24 @@ class Video
 
 
     //Setting method: display_info()
-    public void display_info()
+    public void DisplayInfo()
     {
-        Console.WriteLine($"Title: {_title}");
+        Console.WriteLine($"\nTitle: {_title}");
         Console.WriteLine($"Author: {_author}");
         Console.WriteLine($"Length: {_length}");
         Console.WriteLine($"Number of comments: {GetCommentCount()}");
-        Console.WriteLine($"Comments: ");
+        Console.WriteLine("------------------------------");
 
-        foreach(Comment comment in _comments)
+        if (_comments.Count > 0)
         {
-            comment.display_comment();
+            foreach (Comment comment in _comments)
+            {
+                comment.DisplayComment();
+            }
         }
-        Console.WriteLine();
+        else
+        {
+            Console.WriteLine("No comments yet.");
+        }
     }
 }

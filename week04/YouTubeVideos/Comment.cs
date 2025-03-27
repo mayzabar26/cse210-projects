@@ -15,10 +15,11 @@ class Comment
     }    
 
 
-    //Setting method: display_comment()
-    public void display_comment()
+    //Setting method: DisplayComment()
+    public void DisplayComment()
     {
-        
+        Console.WriteLine($"Commentor: {_commenter}");
+        Console.WriteLine($"Comment: {_text}\n");
     }
 }
 
