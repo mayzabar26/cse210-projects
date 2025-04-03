@@ -1,6 +1,4 @@
-using System;
-
-class Assignment 
+public class Assignment 
 {
     //Setting the variables
     private string _studentName;
@@ -14,8 +12,19 @@ class Assignment
     }
 
     //Setting the Getter to access the private attributes
+    public string GetStudentName()
+    {
+        return _studentName;
+    }
+
+    public string GetTopic()
+    {
+        return _topic;
+    }
+
+
     public string GetSummary()
     {
-        return _studentName + " - " + _topic;
+        return $"\n{_studentName}  -  {_topic}";
     }
 }
