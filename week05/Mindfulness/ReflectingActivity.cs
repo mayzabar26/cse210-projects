@@ -1,11 +1,17 @@
+//using System;
+//using System.Collections.Generic;
 public class ReflectingActivity : Activity 
 {
+    //Declare static Random instance to prevent duplicate values
+    private static Random _rand = new Random();
+
+
     //Setting the variables
     private List<String> _prompts;
     private List<String> _questions;
 
 
-    //Setting constructors
+    //Setting constructors with list of prompts and questions
     public ReflectingActivity() : base("Reflecting Activity", "This activity will help you reflect on times in your life when you have shown strength and resilience.")
     {
         _prompts = new List<string>
@@ -30,30 +36,28 @@ public class ReflectingActivity : Activity
         };
     }
 
-    //Setting Getters
+    //Setting Getters GetRandomPrompt() and GetRandomQuestion()
     private string GetRandomPrompt()
     {
-        Random rand = new Random();
-        return _prompts[rand.Next(_prompts.Count)];
+        return _prompts[_rand.Next(_prompts.Count)]; //Returns random prompts
     }
 
 
     private string GetRandomQuestion()
     {
-        Random rand = new Random();
-        return _questions[rand.Next(_questions.Count)];
+        return _questions[_rand.Next(_questions.Count)]; //Returns random questions
     }
 
 
     //Main activity method
     public override void Run()
     {
-        DisplayStartingMessage();
+        DisplayStartingMessage(); //Will display starting message
 
         Console.WriteLine("\nConsider the following prompt:");
         Console.WriteLine($"--- {GetRandomPrompt()} ---");
         Console.WriteLine("\nTake a few moments to reflect on this.");
-        ShowSpinner(5);
+        ShowSpinner(7);
 
         int elapsedTime = 0;
         int duration = GetDuration();
@@ -61,10 +65,10 @@ public class ReflectingActivity : Activity
         while (elapsedTime < duration)
         {
             Console.WriteLine($"\n{GetRandomQuestion()}");
-            ShowSpinner(5);
-            elapsedTime += 5;
+            ShowSpinner(5); //Gives the user time to think about the answer
+            elapsedTime += 5;  //Each question takes 5 seconds
         }
 
-        DisplayEndingMessage();
+        DisplayEndingMessage(); //Will display ending message
     }
 }

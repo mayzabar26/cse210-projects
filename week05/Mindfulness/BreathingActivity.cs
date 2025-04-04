@@ -1,4 +1,4 @@
-using System;
+//using System;
 
 public class BreathingActivity : Activity
 {
@@ -11,11 +11,12 @@ public class BreathingActivity : Activity
     //Main activity method
     public override void Run()
     {
-        DisplayStartingMessage();
+        DisplayStartingMessage(); //Will display starting message
 
-        int elapsedTime = 0;
-        int duration = GetDuration();
+        int elapsedTime = 0; //Activity time duration starts in 0
+        int duration = GetDuration(); //User time duration
 
+        //Breathing instructions based on user time duration
         while (elapsedTime < duration)
         {
             Console.WriteLine("\nBreathe in... ");
@@ -27,6 +28,6 @@ public class BreathingActivity : Activity
             elapsedTime += 10; //Each cicle takes 10 seconds
         }
 
-        DisplayEndingMessage();
+        DisplayEndingMessage(); //Will display ending message
     }
 }

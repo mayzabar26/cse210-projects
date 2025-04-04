@@ -1,13 +1,17 @@
-using System;
-using System.Collections.Generic;
+//using System;
+//using System.Collections.Generic;
 
 public class ListingActivity : Activity 
 {
-    //Setting the variables
+    //Declare static Random instance to prevent duplicate values
+    private static Random _rand = new Random();
+
+
+    //Setting the list variable
     private List<String> _prompts;
 
 
-    //Setting constructors
+    //Setting constructors with list of prompts
     public ListingActivity() : base("Listing Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
     {
         _prompts = new List<string>
@@ -24,15 +28,14 @@ public class ListingActivity : Activity
     //Setting the Method: GetRandomPrompt()
     private string GetRandomPrompt()
     {
-        Random rand = new Random();
-        return _prompts[rand.Next(_prompts.Count)];
+        return _prompts[_rand.Next(_prompts.Count)];
     }
 
 
     //Main activity method 
     public override void Run()
     {
-        DisplayStartingMessage();
+        DisplayStartingMessage(); //Will display starting message
 
         Console.WriteLine("\nList as many responses as you can to the following prompt:");
         Console.WriteLine($"----- {GetRandomPrompt()} -----");
@@ -42,7 +45,7 @@ public class ListingActivity : Activity
         
         int elapsedTime = 0;
         int duration = GetDuration();
-        List<String> responses = new List<string>();
+        List<String> responses = new List<string>(); //stores and lists user responses
         
         Console.WriteLine("\nStart listing your response:");
 
@@ -53,7 +56,8 @@ public class ListingActivity : Activity
             responses.Add(response);
             elapsedTime += 5; 
         }
+
         Console.WriteLine($"You listed {responses.Count} items!");
-        DisplayEndingMessage();
+        DisplayEndingMessage(); //Will display starting message
     }
 }

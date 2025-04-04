@@ -4,10 +4,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        bool running = true;
-
         //While loop: keeps running until the user chooses to quit
-        while (running)
+        while (true)
         {
             Console.WriteLine("\n========== Menu Options ==========");
             Console.WriteLine("\nWelcome to the Activities Program!");
@@ -15,46 +13,58 @@ class Program
             Console.WriteLine("2. Start reflecting activity");
             Console.WriteLine("3. Start listing activity");
             Console.WriteLine("4. Quit");
-            Console.WriteLine("==================================");
-            Console.Write("Select an activity from the menu ");
+            Console.WriteLine("\n==================================");
+            Console.Write("Select an activity from the menu: ");
 
             string userChoice = Console.ReadLine();
+            Activity activity = null;
 
+                        
+            // Switch case to handle user choice
             switch (userChoice)
             {
                 case "1":
-                    string randomPrompt = promptGenerator.GetRandomPrompt();
-                    Console.WriteLine($"\nPrompt: {randomPrompt}");
-                    Console.Write("Your response: ");
-                    string response = Console.ReadLine();
-                    journal.AddEntry(randomPrompt, response);
+                    activity = new BreathingActivity();
                     break;
 
-                case "2": //Display all journal entries
-                    journal.DisplayEntries();
+                case "2": 
+                    activity = new ReflectingActivity();
                     break;
 
-                case "3": //Load journal entries from a file
-                    Console.Write("Enter the filename to load: ");
-                    string loadFilename = Console.ReadLine();
-                    journal.LoadFromFile(loadFilename);
+                case "3":
+                    activity = new ListingActivity();
                     break;
 
-                case "4": //Save journal entries to a file
-                    Console.Write("Enter the filename to save: "); // ✅ Agora pede o nome do arquivo
-                    string saveFilename = Console.ReadLine();
-                    journal.SaveToFile(saveFilename);
-                    break;
+                case "4": 
+                    Console.Write("\nThank you for using the Mindfulness Program. Goodbye!");
+                    return; //Exits the program
 
-                case "5": //Quit the program
-                    running = false;
-                    break;
 
+                //Showing Creativity and Exceeding Requirements:
+                //In case of an invalid choice, the spinner will work for a couple of seconds, and the menu will appear again
                 default: //Invalid input, show the message
                     Console.WriteLine("Invalid choice, try again.");
-                    break;
+                    ShowSpinner(3);
+                    continue; //Goes Back to the menu
             }
+
+            //Runs the selected activity
+            activity.Run();
+
+            Console.WriteLine("\nPress any key to return to the menu...");
+            Console.ReadKey();
         }
         
+    }
+
+    //Spinner animation  
+    static void ShowSpinner(int seconds)
+    {
+        for (int i = 0; i < seconds; i++)
+        {
+            Console.Write(".");
+            System.Threading.Thread.Sleep(1000);
+        }
+        Console.WriteLine();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Collections.Generic;
 
 public abstract class Activity 
 {
@@ -17,13 +18,24 @@ public abstract class Activity
     }
 
 
+    //Setting Getter and Setter for duration
+    public int GetDuration()
+    {
+        return _duration;
+    }
+
+    public void SetDuration(int duration)
+    {
+        _duration = duration; //Allows us to modify _duration safely
+    }
+
+
     //Setting the Method: DisplayStartingMessage()
     public void DisplayStartingMessage()
     {
         Console.WriteLine($"\nWelcome to the {_name}!");
         Console.WriteLine($"\n{_description}");
-        Console.Write("How long, in seconds, would you like for your session? ");
-        Console.WriteLine("Get ready to start...");
+        Console.Write("\nHow long, in seconds, would you like for your session? ");
 
         //Showing creativity: Using if statement in case user has a invalid input. 
         //If we have a invalid input, automatically will set a 30s activity
@@ -36,6 +48,9 @@ public abstract class Activity
             Console.WriteLine("Invalid input. Setting duration to 30 seconds.");
             _duration = 30;
         }
+
+        Console.WriteLine("\nGet ready to start...");
+        ShowSpinner(3);
     }
 
 
@@ -46,7 +61,6 @@ public abstract class Activity
         Console.WriteLine($"You completed {_duration} seconds of {_name}");
         ShowSpinner(3);
     }
-
 
     //Setting the Method: ShowSpinner()
     public void ShowSpinner(int seconds)
