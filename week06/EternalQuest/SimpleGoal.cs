@@ -1,4 +1,3 @@
-using System;
 
 public class SimpleGoal : Goal
 {
@@ -7,7 +6,7 @@ public class SimpleGoal : Goal
 
 
     //Set constructors
-    public SimpleGoal(string shortName, string description, string points) : base(shortName, description, points)
+    public SimpleGoal(string shortName, string description, int points) : base(shortName, description, points)
     {
         _isComplete = false;
     }
@@ -38,7 +37,11 @@ public class SimpleGoal : Goal
     //Marks the goal as complete and returns the points
     public override int RecordEvent()
     {
-        _isComplete = true;
-        return GetPoints();
+        if (!_isComplete)
+        {
+            _isComplete = true;
+            return GetPoints();
+        }
+        return 0;
     }
 }

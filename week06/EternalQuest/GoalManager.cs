@@ -2,99 +2,68 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-
 public class GoalManager
 {
-    //Set Variables
-    private List<Goal> _goals = new List<Goal>();
-    private int _score = 0;
+    //Set variables
+    private List<Goal> _goals;
+    private int _score;
 
-
-    //Set Constructor
+    //Set constructor
     public GoalManager()
     {
         _goals = new List<Goal>();
         _score = 0;
     }
-    
 
-    //Set Methods
-    public void Start()
-    {
-        //Start the program menu loop
-        string input = "";
+    //Set getters and setters
+    public int GetScore() => _score;
 
-        while (input != "8")
-        {
-            Console.WriteLine("\nMenu:");
-            Console.WriteLine("1. Display player info");
-            Console.WriteLine("2. List goal names");
-            Console.WriteLine("3. List goal details");
-            Console.WriteLine("4. Create new goal");
-            Console.WriteLine("5. Record event");
-            Console.WriteLine("6. Save goals");
-            Console.WriteLine("7. Load goals");
-            Console.WriteLine("8. Exit");
 
-            Console.Write("Select an option: ");
-            input = Console.ReadLine();
-
-            switch (input)
-            {
-                case "1":
-                    DisplayPlayerInfo();
-                    break;
-                case "2":
-                    ListGoalNames();
-                    break;
-                case "3":
-                    ListGoalDetails();
-                    break;
-                case "4":
-                    CreateGoal();
-                    break;
-                case "5":
-                    RecordEvent();
-                    break;
-                case "6":
-                    SaveGoals();
-                    break;
-                case "7":
-                    LoadGoals();
-                    break;
-                case "8":
-                    Console.WriteLine("Exiting program...");
-                    break;
-                default:
-                    Console.WriteLine("Invalid option.");
-                    break;
-            }
-        }
-        
-    }
-
+    //Set methods
     public void DisplayPlayerInfo()
     {
         Console.WriteLine($"Current Score: {_score} points.");
     }
-    
+
     public void ListGoalNames()
     {
-        //List only the names of the goals
-        Console.WriteLine($"Goal: ");
+        Console.WriteLine("The goals are:");
         for (int i = 0; i < _goals.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {_goals[i].GetShortName()}");
-        }    
+            Goal goal = _goals[i];
+            string checkmark = goal.IsComplete() ? "X" : " ";
+
+            if (goal is ChecklistGoal checklist)
+            {
+                Console.WriteLine($"{i + 1}. [{checkmark}] {goal.GetShortName()} ({goal.GetDescription()}) -- Currently completed: {checklist.GetAmountCompleted()}/{checklist.GetTarget()}");
+            }
+            else
+            {
+                Console.WriteLine($"{i + 1}. [{checkmark}] {goal.GetShortName()} ({goal.GetDescription()})");
+            }
+        }
     }
 
+    //Creativity: this option will show only the goals details
     public void ListGoalDetails()
     {
-        //Lists goal details, including status and progress
         Console.WriteLine("Goal Details:");
         for (int i = 0; i < _goals.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {_goals[i].GetDetailsString()}");
+            Goal goal = _goals[i];
+            string type = goal.GetType().Name;
+            string name = goal.GetShortName();
+            string description = goal.GetDescription();
+            int points = goal.GetPoints();
+
+            if (goal is ChecklistGoal checklist)
+            {
+                Console.WriteLine($"{i + 1}. {type} - {name}: {description}, Points: {points}, Target: {checklist.GetTarget()}, Completed: {checklist.GetAmountCompleted()}, Bonus: {checklist.GetBonus()}");
+            }
+            else
+            {
+                Console.WriteLine($"{i + 1}. {type} - {name}: {description}, Points: {points}");
+            }
         }
     }
 
@@ -144,10 +113,8 @@ public class GoalManager
 
     public void RecordEvent()
     {
-        //Register an event on a selected goal
         Console.WriteLine("Which goal did you accomplish?");
         ListGoalNames();
-
         Console.Write("Enter the goal number: ");
         int choice = int.Parse(Console.ReadLine()) - 1;
 
@@ -158,16 +125,14 @@ public class GoalManager
             _score += earned;
             Console.WriteLine($"Well done! You earned {earned} points.");
         }
-
         else
         {
             Console.WriteLine("Invalid goal number.");
         }
     }
 
-    public void SaveGoal()
+    public void SaveGoals()
     {
-        //Save goals and score to a file
         Console.Write("Enter file name to save: ");
         string filename = Console.ReadLine();
 
@@ -185,12 +150,12 @@ public class GoalManager
 
     public void LoadGoals()
     {
-        //Load goals and score from a file
         Console.Write("Enter file name to load: ");
         string filename = Console.ReadLine();
 
         if (File.Exists(filename))
         {
+            Console.WriteLine($"Loading from: {Path.GetFullPath(filename)}");
             string[] lines = File.ReadAllLines(filename);
             _score = int.Parse(lines[0]);
             _goals.Clear();
@@ -204,7 +169,6 @@ public class GoalManager
 
             Console.WriteLine("Goals loaded successfully.");
         }
-
         else
         {
             Console.WriteLine("File not found.");

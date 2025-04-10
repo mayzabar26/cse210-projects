@@ -1,0 +1,4 @@
+0
+SimpleGoal:Give talk,talk during seminary classes to help in the discussion,100,False
+EternalGoal:read scriptures,read scriptures daily for at lest 10 minutes,50
+ChecklistGoal:attend the temple,attend the templo 3 times a year,50,500,3,0
